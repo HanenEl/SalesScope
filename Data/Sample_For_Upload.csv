@@ -1,0 +1,51 @@
+OrderDate,ItemsInOrder,LineTotal,Category,Sub category,ProductName,Territory,Color,Size
+2011-05-31,12,838.9178,Bikes,Road Bikes,road-650,Canada,Black,60
+2014-02-01,3,4.99,Accessories,Tires and Tubes,mountain tire tube,France,No Color,No size
+2013-05-20,1,782.99,Bikes,Road Bikes,road-650,Australia,Black,62
+2014-01-04,3,3.99,Accessories,Tires and Tubes,road tire tube,Southwest,No Color,No size
+2013-01-28,19,28.8404,Clothing,Jerseys,long-sleeve logo jersey,Northwest,Multi,M
+2013-12-31,2,1769.505,Bikes,Mountain Bikes,mountain-200,Northwest,Black,38
+2014-03-28,4,35.0,Accessories,Tires and Tubes,mountain tire,Northwest,No Color,No size
+2014-05-16,3,21.49,Accessories,Tires and Tubes,road tire,Northwest,No Color,No size
+2014-05-24,3,34.99,Accessories,Helmets,sport-100 helmet,Southwest,Blue,No size
+2014-04-30,2,4.99,Accessories,Tires and Tubes,touring tire tube,Northwest,No Color,No size
+2013-06-30,3,24.49,Clothing,Gloves,half-finger gloves,France,Black,S
+2014-04-13,4,4.99,Accessories,Bottles and Cages,water bottle,Canada,No Color,30 oz.
+2011-08-01,9,419.4589,Bikes,Road Bikes,road-650,Southwest,Red,62
+2014-04-15,3,54.99,Accessories,Hydration Packs,hydration pack,Northwest,Silver,70 oz.
+2014-05-07,2,2.29,Accessories,Tires and Tubes,patch kit/8 patches,Germany,No Color,No size
+2012-01-29,14,419.4589,Bikes,Road Bikes,road-650,Southwest,Black,60
+2014-01-17,4,9.99,Accessories,Bottles and Cages,mountain bottle cage,Germany,No Color,No size
+2014-04-18,3,2.29,Accessories,Tires and Tubes,patch kit/8 patches,Australia,No Color,No size
+2014-01-12,3,63.5,Clothing,Vests,classic vest,Southwest,Blue,L
+2014-03-01,4,323.994,Bikes,Road Bikes,road-750,Southwest,Black,44
+2013-09-24,2,4.99,Accessories,Bottles and Cages,water bottle,United Kingdom,No Color,30 oz.
+2014-06-13,1,4.99,Accessories,Tires and Tubes,mountain tire tube,Northwest,No Color,No size
+2014-05-21,3,54.99,Accessories,Hydration Packs,hydration pack,Canada,Silver,70 oz.
+2014-01-19,1,21.98,Accessories,Fenders,fender set - mountain,Canada,No Color,No size
+2013-10-29,2,9.99,Accessories,Bottles and Cages,mountain bottle cage,Australia,No Color,No size
+2014-05-20,3,4.99,Accessories,Tires and Tubes,mountain tire tube,United Kingdom,No Color,No size
+2014-01-21,4,34.99,Accessories,Helmets,sport-100 helmet,Northwest,Red,No size
+2014-05-03,4,34.99,Accessories,Helmets,sport-100 helmet,Northwest,Red,No size
+2013-06-16,2,34.99,Accessories,Helmets,sport-100 helmet,United Kingdom,Blue,No size
+2013-12-17,2,2.29,Accessories,Tires and Tubes,patch kit/8 patches,Australia,No Color,No size
+2013-08-30,9,54.942,Components,Handlebars,touring handlebars,Northwest,No Color,No size
+2013-08-11,4,24.49,Clothing,Gloves,half-finger gloves,Northwest,Black,M
+2012-03-30,7,1769.505,Bikes,Mountain Bikes,mountain-100,Canada,Silver,44
+2014-03-04,2,49.99,Clothing,Jerseys,long-sleeve logo jersey,Northwest,Multi,L
+2014-01-16,4,34.99,Accessories,Helmets,sport-100 helmet,Canada,Red,No size
+2013-01-28,6,1295.988,Bikes,Mountain Bikes,mountain-300,Canada,Black,44
+2014-05-18,1,8.99,Clothing,Caps,awc logo cap,United Kingdom,Multi,No size
+2013-02-28,6,1769.505,Bikes,Road Bikes,road-250,Southwest,Red,52
+2013-12-12,3,34.99,Accessories,Helmets,sport-100 helmet,Australia,Blue,No size
+2014-05-19,2,1769.505,Bikes,Mountain Bikes,mountain-200,United Kingdom,Silver,42
+2013-04-30,22,209.256,Components,Mountain Frames,mountain frame,Canada,Black,38
+2013-11-30,9,4.77,Accessories,Cleaners,bike wash - dissolver,Germany,No Color,No size
+2014-02-08,3,2.29,Accessories,Tires and Tubes,patch kit/8 patches,France,No Color,No size
+2013-09-16,4,4.99,Accessories,Tires and Tubes,mountain tire tube,Southwest,No Color,No size
+2014-03-25,5,24.49,Clothing,Gloves,half-finger gloves,Canada,Black,M
+2013-10-03,3,35.0,Accessories,Tires and Tubes,mountain tire,Australia,No Color,No size
+2014-02-19,1,4.99,Accessories,Bottles and Cages,water bottle,Southwest,No Color,30 oz.
+2013-01-29,1,1769.505,Bikes,Road Bikes,road-250,Canada,Red,48
+2014-03-31,20,218.454,Components,Mountain Frames,mountain frame-w,Canada,Silver,46
+2014-03-22,3,1214.85,Bikes,Touring Bikes,touring-2000,Germany,Blue,54
