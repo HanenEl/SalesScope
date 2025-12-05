@@ -1,0 +1,476 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Sales Scope</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script src="{{ url_for('static', filename='js/app.js') }}" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+</head>
+
+<body>
+<button class="mobile-toggle" id="mobileToggle"> ☰ </button>
+  <div class="app">
+    <aside class="sidebar" id="sidebar">
+      <div style="display:flex;align-items:center;gap:10px">
+        <div class="brand" style="flex:1;align-items:center">
+          <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo">
+
+          <div>
+            <div class="title">Sales Scope</div>
+          </div>
+        </div>
+      </div>
+  <!-- Chat button -->
+  <div id="chat-button">💬</div>
+
+  <!-- Chat box -->
+  <div id="chat-box">
+    <div id="chat-header">Sales Chatbot</div>
+    <div id="chat-messages"></div>
+    <input type="text" id="chat-input" placeholder="Ask me about sales..." />
+  </div>
+
+  <nav id="nav">
+    <a class="nav-item active" data-page="overview">
+      <span class="icon"></span>
+      <span class="label">Project Overview</span>
+    </a>
+    <a class="nav-item" data-page="dashboard" >
+      <span class="icon"></span>
+      <span class="label">Dashboard</span>
+    </a>
+    <a class="nav-item" data-page="upload" >
+      <span class="icon"></span>
+      <span class="label">Upload & Predict</span>
+    </a>
+    <a class="nav-item" data-page="manual" >
+      <span class="icon"></span>
+      <span class="label">Manual Input</span>
+    </a>
+    <a class="nav-item" data-page="team" >
+      <span class="icon"></span>
+      <span class="label">Team</span>
+    </a>
+  </nav>
+
+  <div class="sidebar-footer">© Sales Scope</div>
+
+    </aside>
+    <main class="main">
+      <div class="topbar">
+      </div>
+
+      <!-- Pages container (SPA) -->
+      <div class="pages">
+
+        <section id="overview" class="page active">
+        <h1>Project Overview</h1>
+        <p class="lead">Summary and documentation of the Sales Forecasting and Optimization Project</p>
+
+        <div class="panel" style="padding:20px; line-height:1.6;">
+        <h2>About Sales Scope</h2>
+        <p>
+          <strong>Sales Scope</strong> is an integrated sales forecasting system that uses data analysis and machine learning 
+          to help businesses make better decisions regarding inventory, marketing, and sales management.  
+        </p>
+        <p>
+          The system processes and analyzes sales data, then applies an AI model to predict future outcomes such as 
+          expected sales or Due Days.
+        </p>
+
+        <hr style="margin:20px 0; opacity:0.2;">
+
+        <h2>Project Purpose</h2>
+        <ul style="margin-left: 50px; margin-top: 0;">
+          <li>Analyze historical sales data</li>
+          <li>Identify patterns, trends, and correlations</li>
+          <li>Accurately forecast demand and future sales</li>
+          <li>Enhance business operations and enable data-driven decisions</li>
+        </ul>
+
+        <hr style="margin:20px 0; opacity:0.2;">
+
+        <h2>System Components</h2>
+
+        <!-- Dashboard Section -->
+        <h3 style="margin-top:20px;"> Dashboard</h3>
+        <p>The interactive dashboard displays the most important sales metrics, including:</p>
+        <ul style="margin-left: 50px; margin-top: 0;">
+          <li>Total Sales</li>
+          <li>Total Transactions</li>
+          <li>Average Order Value</li>
+          <li>Top Territories</li>
+          <li>Sales by Territory / Category</li>
+          <li>Top 10 Products</li>
+          <li>Monthly Trends</li>
+          <li>Heatmap (Category vs Territory)</li>
+        </ul>
+        <p>The dashboard updates automatically whenever new data is uploaded.</p>
+
+        <!-- Upload Section -->
+        <h3 style="margin-top:25px;">Upload & Predict</h3>
+        <p>
+          Allows users to upload CSV sales data. The system then:
+        </p>
+        <ul style="margin-left: 50px; margin-top: 0;">
+          <li>Processes the uploaded data</li>
+          <li>Applies the AI prediction model</li>
+          <li>Generates the Predicted Due column</li>
+          <li>Shows a preview of the first 5 predicted rows</li>
+          <li>Allows downloading the full results as a CSV file</li>
+        </ul>
+        <p>
+          Supports large files up to <strong>50MB</strong>.
+        </p>
+
+        <!-- Manual Input Section -->
+        <h3 style="margin-top:25px;">Manual Input</h3>
+        <p>
+          Designed for cases where no CSV file is available.  
+          Users can:
+        </p>
+        <ul style="margin-left: 50px; margin-top: 0;">
+          <li>Add any number of input rows</li>
+          <li>Edit values directly</li>
+          <li>Run Predict All instantly</li>
+          <li>Receive results immediately</li>
+        </ul>
+        <p>
+          Includes built-in validation to ensure input correctness for accurate predictions.
+        </p>
+        </div>
+      </section>
+
+      <!-- DASHBOARD -->
+      <section id="dashboard" class="page">
+          <h1>Sales Dashboard</h1>
+          <p class="lead">Monitor your sales Insights and key metrics</p>
+
+          <!-- CSV Upload Section -->
+          <div id="csvUploadSection" class="panel" style="margin-bottom:20px; display: block;">
+            <h3>Upload Your Sales Data</h3>
+            <p style="color:var(--muted); margin-bottom:15px;">Upload a CSV file to analyze your sales data</p>
+            <div style="display:flex; gap:10px; align-items:center;">
+              <input type="file" id="csvFileInput" accept=".csv" style="display:none">
+              <button class="btn" id="uploadCsvBtn">Choose CSV File</button>
+              <span id="fileName" style="color:var(--muted); font-size:14px;">No file chosen</span>
+            </div>
+            <div id="uploadStatus" style="margin-top:10px; font-size:13px;"></div>
+          </div>
+
+          <!-- Upload Again -->
+          <div id="reloadDashboardSection" style="display: none; margin-bottom: 15px;">
+            <button class="btn ghost" id="reloadDashboardBtn">
+              ↻ Load New CSV File
+            </button>
+          </div>
+
+          <!-- Metrics Cards -->
+          <div class="cards" id="metricsCards" style="display: none;">
+            <div class="card panel">
+              <div style="font-size:13px;color:var(--muted)">Total Sales</div>
+              <div style="font-size:22px;margin-top:8px" id="totalSales">-</div>
+            </div>
+            <div class="card panel">
+              <div style="font-size:13px;color:var(--muted)">Total Transactions</div>
+              <div style="font-size:22px;margin-top:8px" id="totalTransactions">-</div>
+            </div>
+            <div class="card panel">
+              <div style="font-size:13px;color:var(--muted)">Average Order Value</div>
+              <div style="font-size:22px;margin-top:8px" id="avgOrderValue">-</div>
+            </div>
+            <div class="card panel">
+              <div style="font-size:13px;color:var(--muted)">Top Territory</div>
+              <div style="font-size:22px;margin-top:8px" id="topTerritory">-</div>
+            </div>
+          </div>
+
+          <!-- Filters -->
+          <div class="filters-panel panel" style="display: none;" id="filtersPanel">
+            <div class="filter-group">
+              <label>Select Year</label>
+              <select id="year_filter" class="filter-select">
+                <option value="">All Years</option>
+              </select>
+            </div>
+
+            <div class="filter-group">
+              <label>Select Territory</label>
+              <select id="territory_filter" class="filter-select" multiple>
+                <option value="">All Territories</option>
+              </select>
+            </div>
+
+            <div class="filter-group">
+              <label>Select Category</label>
+              <div id="category_filter" class="category-checkboxes">
+                <!-- Checkboxes will be populated by JavaScript -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Charts -->
+          <div class="charts-grid" id="chartsContainer" style="display: none;">
+            <div class="chart-container panel">
+              <h3>Sales by Territory</h3>
+              <div id="pie_chart" class="chart"></div>
+            </div>
+            <div class="chart-container panel">
+              <h3>Sales by Category</h3>
+              <div id="bar_chart" class="chart"></div>
+            </div>
+            <div class="chart-container panel">
+              <h3>Average Sales per Month</h3>
+              <div id="line_chart" class="chart"></div>
+            </div>
+            <div class="chart-container panel">
+              <h3>Sales (Territory vs Category)</h3>
+              <div id="heatmap_chart" class="chart"></div>
+            </div>
+            <div class="chart-container panel full-width">
+              <h3>Top 10 Products</h3>
+              <div id="top10_chart" class="chart"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- UPLOAD & PREDICT -->
+        <section id="upload" class="page">
+          <h1>Upload & Predict</h1>
+          <p class="lead">Upload your sales data to generate AI-powered predictions</p>
+
+          <div class="upload-container">
+            <!-- Upload Area -->
+            <div class="upload-box panel">
+              <div class="upload-header">
+                <h3>📁 Upload Sales Data</h3>
+                <p>Upload your CSV file to get instant predictions</p>
+              </div>
+
+              <div class="drop-area" id="dropArea">
+                <div class="upload-icon">⬆️</div>
+                <h4>Upload CSV File</h4>
+                <p>Drag and drop your file here or click to browse</p>
+                <button class="browse-btn" id="browseBtn">Choose File</button>
+                <input type="file" id="fileInput" accept=".csv" style="display:none">
+              </div>
+
+              <div class="supported-formats">
+                <h4>Supported Format:</h4>
+                <ul>
+                  <li>CSV files (.csv) with sales data</li>
+                  <li>
+                    Must include columns:<br>
+                    <code>OrderDate, ItemsInOrder, LineTotal, Category, Sub category, ProductName, Territory, Color, Size</code>
+                  </li>
+                  <li>Max file size: 50MB</li>
+                </ul>
+              </div>
+           </div>
+
+            <!-- Results Section -->
+            <div class="results-section" id="resultsSection" style="display:none;">
+              <!-- Prediction Summary -->
+              <div class="prediction-summary panel">
+                <div class="summary-header">
+                  <h3>✔️ Prediction Complete!</h3>
+                  <div class="accuracy-badge">
+                    <span class="accuracy-value" id="accuracyValue">92.5%</span>
+                    <span class="accuracy-label">accuracy</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Prediction Preview -->
+              <div class="prediction-preview panel">
+                <div class="preview-header">
+                  <h4>Prediction Preview (First 5 rows)</h4>
+                  <div class="preview-actions">
+                    <button class="btn ghost" id="downloadResults">
+                      📥 Download CSV
+                    </button>
+                  </div>
+                </div>
+
+                <div class="predictions-table-container">
+                  <table class="predictions-table">
+                    <thead>
+                      <tr>
+                        <th>OrderDate</th>
+                        <th>ItemsInOrder</th>
+                        <th>LineTotal</th>
+                        <th>Category</th>
+                        <th>Sub category</th>
+                        <th>ProductName</th>
+                        <th>Territory</th>
+                        <th>Color</th>
+                        <th>Size</th>
+                        <th>Predicted Due</th>
+                      </tr>
+                    </thead>
+                    <tbody id="predictionsTableBody">
+                      <!-- Rows will be populated by JavaScript -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <!-- New Prediction Button -->
+              <div class="new-prediction-actions">
+                <button class="btn ghost" id="newPrediction">
+                  🔄 Upload New File
+                </button>
+              </div>
+            </div>
+
+            <!-- Processing State -->
+            <div class="processing-section" id="processingSection" style="display:none;">
+              <div class="processing-panel panel">
+                <div class="processing-content">
+                  <div class="loading-spinner large"></div>
+                  <h3>Generating Predictions...</h3>
+                  <p>Processing your sales data with AI model</p>
+                  <div class="processing-stats">
+                    <span>Records processed: <span id="processedRecords">0</span></span>
+                    <span>Time elapsed: <span id="processingTime">0s</span></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- MANUAL INPUT -->
+        <section id="manual" class="page">
+          <h1>Manual Input</h1>
+          <p class="lead">Manually enter sales data for instant predictions</p>
+
+          <div class="panel" style="margin-top:20px">
+            <!-- Form Header -->
+            <div class="form-header">
+              <h3>Form Input</h3>
+              <button class="btn predict-btn" id="predictAllBtn">Predict All (1)</button>
+            </div>
+
+            <!-- Rows Container -->
+            <div id="rowsContainer">
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+              <button class="btn ghost" id="addRowBtn">+ Add Row</button>
+            </div>
+
+            <!-- Input Validation -->
+            <div class="validation-section">
+              <h4>Input Validation</h4>
+              <ul class="validation-list">
+                <li>All fields are required for accurate predictions</li>
+                <li>Product Name should exist in the trained dataset</li>
+                <li>Items In Order must be greater than 0</li>
+              </ul>
+            </div>
+          </div>
+
+        </section>
+</div>
+<!-- TEAM MEMBERS PAGE -->
+<section id="team" class="page">
+  <h1>Our Team</h1>
+  <p class="lead">Meet the talented individuals behind Sales Scope's innovation</p>
+  <div class="team-container">
+    <div class="team-row top">
+      <!-- Mahmoud -->
+      <div class="team-card panel">
+        <a href="https://www.linkedin.com/in/mahmoud-ashrafff?utm_source=share_via&utm_content=profile&utm_medium=member_ios" target="_blank" class="team-link">
+          <div class="team-photo-container">
+            <img src="static/Teams_Photos/mahmoud.jpg" 
+                 alt="Mahmoud Ashraf" class="team-photo">
+          </div>
+          <div class="team-name">Mahmoud Ashraf Abo<br> Elnaga</div>
+          <div class="team-role">Data Scientist & ML Engineer</div>
+          <div class="team-description">
+            Data Scientist skilled in Python, SQL, and AI, with experience from DEPI Pioneers and NTI AI training. I specialize in turning complex data into clear, actionable insights that drive business growth.
+          </div>
+          <div class="linkedin-tooltip">View LinkedIn Profile</div>
+        </a>
+      </div>
+
+      <!-- Haneen -->
+      <div class="team-card panel">
+        <a href="https://www.linkedin.com/in/haneen-el-ladam-4790b7320/" target="_blank" class="team-link">
+          <div class="team-photo-container">
+            <img src="static/Teams_Photos/haneen.jpg" 
+                 alt="Haneen El-ladam" class="team-photo">
+          </div>
+          <div class="team-name">Haneen Hosny Fahmy<br> El-ladam</div>
+          <div class="team-role">Data Scientist & ML Engineer</div>
+          <div class="team-description">
+            Aspiring Data Scientist currently pursuing a Bachelor's degree in Computer Science and Artificial Intelligence, with a keen interest in everything related to data.
+          </div>
+          <div class="linkedin-tooltip">View LinkedIn Profile</div>
+        </a>
+      </div>
+
+      <!-- Menna -->
+      <div class="team-card panel">
+        <a href="https://www.linkedin.com/in/menna-tarek-elfar/" target="_blank" class="team-link">
+          <div class="team-photo-container">
+            <img src="static/Teams_Photos/menna.jpg" 
+                 alt="Menna Tarek" class="team-photo">
+          </div>
+          <div class="team-name">Menna Tarek Abd Alrahman Elfar</div>
+          <div class="team-role">Data Scientist & ML Engineer</div>
+          <div class="team-description">
+            A Computer Science and Artificial Intelligence student at Damietta University with a strong passion for Data Science, Machine Learning, and Artificial Intelligence.
+          </div>
+          <div class="linkedin-tooltip">View LinkedIn Profile</div>
+        </a>
+      </div>
+    </div>
+
+    <div class="team-row bottom">
+      <!-- Youssef -->
+      <div class="team-card panel">
+        <a href="https://www.linkedin.com/in/youssef--gomaa/" target="_blank" class="team-link">
+          <div class="team-photo-container">
+            <img src="static/Teams_Photos/yossef.jpg" 
+                 alt="Youssef Ehab" class="team-photo">
+          </div>
+          <div class="team-name">Youssef Ehab Abdo<br> Gomaa</div>
+          <div class="team-role">Data Scientist & ML Engineer</div>
+          <div class="team-description">
+            Data Scientist fueled by curiosity and innovation, constantly pushing boundaries to turn complex data into clarity, strategy, and results that stand out.
+          </div>
+          <div class="linkedin-tooltip">View LinkedIn Profile</div>
+        </a>
+      </div>
+
+      <!-- Adham -->
+      <div class="team-card panel">
+        <a href="https://www.linkedin.com/in/adham-aladwash-8b3b8824a/" target="_blank" class="team-link">
+          <div class="team-photo-container">
+            <img src="static/Teams_Photos/Adham.jpg" 
+                 alt="Adham Tarek" class="team-photo">
+          </div>
+          <div class="team-name">Adham Tarek Sayed Aladwash</div>
+          <div class="team-role">Data Scientist & ML Engineer</div>
+          <div class="team-description">
+            Mechatronics Engineer passionate about Data Science and AI-driven Embedded Systems.
+          </div>
+          <div class="linkedin-tooltip">View LinkedIn Profile</div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+    </main>
+  </div>
+  
+</body>
+</html>
