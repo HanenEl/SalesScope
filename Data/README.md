@@ -32,10 +32,3 @@ It provides a **comprehensive view of sales activity**, enabling analysis across
 - Compute **financial metrics** like revenue, tax, and shipping costs.  
 - Identify **best-selling categories and subcategories**.  
 
----
-
-## Notes
-
-- Ensure data is **cleaned and formatted** for analysis.  
-- Date fields may require conversion to datetime format for time-based analysis.  
-- This dataset is suitable for use in **data visualization, business intelligence, and machine learning projects**.
