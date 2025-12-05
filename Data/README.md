@@ -1,6 +1,4 @@
-# Sales Transactions Dataset
-
-## Dataset Description
+# Dataset Description
 
 This dataset contains detailed **sales transaction records** with both order-level and product-level information. It covers the entire sales process including order dates, customer details, territories, product categories, and financial metrics.
 
