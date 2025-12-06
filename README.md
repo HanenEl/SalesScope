@@ -51,7 +51,7 @@ SalesScope/
 ```
 ---
 
-# ⚙️ **5. Running the Project Locally**
+## ⚙️ **5. Running the Project Locally**
 
 ### **1. Clone the repo**
 
