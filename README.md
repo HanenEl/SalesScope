@@ -5,11 +5,10 @@ The project combines **data processing, machine learning, dashboard visualizatio
 
 ### It provides:
 
-* A fully interactive dashboard for sales insights
-* A deployed Flask backend that serves the ML model
-* An intelligent chatbot that answers data-related queries
-* A comprehensive Jupyter Notebook covering the entire data science workflow
-* SalesScope demonstrates how real-world businesses can transform raw data into actionable insights and accurate predictions.
+* **Deployment Interface**: Upload your own dataset manually or use a preloaded file to generate predictions instantly.
+* **Sales Forecasting**: Predict future sales based on uploaded data for better inventory and marketing planning.
+* **Interactive Dashboard**: Visualize sales insights, trends, and product performance with dynamic charts.
+* **Chatbot Assistance**: Ask simple questions within the dashboard to get immediate insights from the data.
 
 This project demonstrates the complete journey from **data cleaning → EDA → feature engineering → model training → deployment**.
 
@@ -78,14 +77,6 @@ Backend runs on:
 
 ---
 
-## **Key Features**
-
-- **Deployment Interface**: Upload your own dataset manually or use a preloaded file to generate predictions instantly.
-- **Sales Forecasting**: Predict future sales based on uploaded data for better inventory and marketing planning.
-- **Interactive Dashboard**: Visualize sales insights, trends, and product performance with dynamic charts.
-- **Chatbot Assistance**: Ask simple questions within the dashboard to get immediate insights from the data.
-
----
 ## **Tech Stack**
 
 - **Languages:** Python, JavaScript, HTML/CSS
