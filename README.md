@@ -37,19 +37,23 @@ All preprocessing steps—including missing value handling, feature engineering,
 
 ```
 SalesScope/
-│── app.py
-│── requirements.txt   
-│── data        
+│── requirements.txt
+│── Data/
 │── Sales_EndToEnd_Project.ipynb
 │
-├── templates/
-│     └── Sales Scope.html
 ├── Dash/
-|     ├── dash.py
-|     └── Image
-└── static/
-      ├── style.css
-      └── app.js
+│     ├── Dash.py
+│     └── Image/
+│
+├── Final_Project/
+│     ├── app.py
+│     ├── model.pkl
+│     ├── templates/
+│     │     └── Sales_Scope.html
+│     └── static/
+│           ├── css
+│           └── js
+
 ```
 ---
 
