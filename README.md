@@ -44,7 +44,9 @@ SalesScope/
 │
 ├── templates/
 │     └── Sales Scope.html
-│
+├── Dash/
+|     ├── dash.py
+|     └── Image
 └── static/
       ├── style.css
       └── app.js
